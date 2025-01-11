@@ -1,0 +1,7 @@
+.container{
+    justify-content: flex-end;
+}
+
+form{ 
+    width: 500px;
+}

@@ -32,6 +32,7 @@ getPgVersion();
   
 const app = express();
 app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, 'public')));
 app.set("view engine", "ejs");
 
 app.use(session({ 
@@ -56,14 +57,15 @@ passport.use(
       const { rows } = await pool.query('SELECT * FROM "User" WHERE "username" = $1', [username]);
 
       const user = rows[0];
-      console.log("User" ,user);
 
       const match = await bcrypt.compare(password, user.password);
 
       if (!user) {
+        console.log("User not found");
         return done(null, false, { message: "Incorrect username" });
       }
       if (!match) {
+        console.log("Password not found");
         return done(null, false, { message: "Incorrect password" })
       }  
       return done(null, user);
@@ -88,6 +90,9 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+app.get('/', (req,res) => {
+  res.redirect('sign-up');
+});
 
 const signUpRouter = require('./routes/sign-up');
 app.use('/', signUpRouter);

@@ -1,0 +1,139 @@
+.container{
+    margin: 0;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-rows: 90px 1fr;
+    grid-template-columns: 400px 1fr;
+}
+
+.navbar{
+    grid-row: 1 / 2;
+    grid-column: 1 / 3;
+    padding: 0 20px;
+    width: 100%;
+    height: 90px;
+    border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h1{
+    font-weight: 400;
+}
+
+.navbarlink{
+    width: 200px;
+    height: 45px;
+    color: #222;
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #222;
+    transition: .2s all ease-in-out;
+    position: relative;
+}
+
+.navbarlink:hover{
+    background-color: #222;
+    color: white;
+}
+
+.left-side{
+    display: flex;
+    gap: 30px;
+}
+
+.left-container{
+    border-right: 1px solid #222;
+    background-color: #eeeeee6e;
+}
+
+.right-container{
+    border-right: 1px solid black;
+    background-color: white;
+}
+
+.infoContainer{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    height: 50px;
+    align-items: center;
+    padding: 10px;
+}
+
+.info{
+    padding: 5px;
+    color: #222;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: .2s all ease-in-out;
+}
+
+.info:hover{
+    background-color: #cbcbcbbb;
+}
+
+.folderForm{
+    background-color: rgba(185, 185, 185, 0.1);
+    width: 300px;
+    padding: 20px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;  
+}
+
+.folderForm input{
+    height: 40px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: white;
+    padding: 20px;
+    transition: .2s;
+    font-size: 1rem;
+}
+
+input:focus{
+    border: 1px solid black;
+    background-color: transparent;
+}
+
+.submit{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    background-color: #222222;
+    border: none;
+    overflow: hidden;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+}
+
+.close{
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    font-size: 2rem;
+    left: 90%; 
+    top: 0;
+    cursor: pointer;
+}
+
+.hide{
+    display: none;
+}

@@ -4,12 +4,13 @@ const controller = require("../controller/log-in-controller");
 const passport = require("passport");
 
 router.get('/log-in', controller.get);
-router.post('/log-in', passport.authenticate('local', {
-    successRedirect: '/home',
-    failureRedirect: '/error'
-}));
+router.post('/log-in',
+  passport.authenticate('local', { failureRedirect: '/log-in' }),
+  function(req, res) {
+    res.redirect('home');
+});
   
-router.get('/logout', function(req, res, next) {
+router.get('/log-out', function(req, res, next) {
     req.logout(function(err) {
       if (err) { return next(err); }
       res.redirect('/');

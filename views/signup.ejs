@@ -3,24 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/signup.css">
 </head>
 <body>
-    <div>signup</div>
-    <form action="/sign-up" method="post">
-        <div class="inputContainer">
-            <label for="username">Username: </label>
-            <input type="text" id="username" name="username">
-        </div>
-        <div class="inputContainer">
-            <label for="password">Password: </label>
-            <input type="password" id="password" name="password">
-        </div>
-        <div class="inputContainer">
-            <label for="confirmPassword">Confrim Password: </label>
-            <input type="password" id="confirmPassword" name="confirmPassword">
-        </div>
-        <button class="submitBtn">Create Account</button>
-    </form>
+    <div class="container">
+        <div class="sideImage"></div>
+        <form action="/sign-up" method="post">
+            <div class="welcomeHeader">
+                <h1>Welcome to File Uploader, </br> Create An Account to Continue.  </h1>
+                <p>Already have an account? <a href="/log-in">Log in</a></p>
+            </div>
+            <div class="inputs">
+                <div class="inputContainer">
+                    <label for="username">Username </label>
+                    <input type="text" id="username" name="username" class="<%= errors.username ? 'error' : '' %>" value="<%= username %>">
+                    <% if (errors.username) { %>
+                        <span class="error-message"><%= errors.username.msg %></span>
+                    <% } %>
+                </div>
+                <div class="inputContainer">
+                    <label for="password">Password </label>
+                    <div class="passwordInput">
+                        <input type="password" id="password" name="password" class="<%= errors.password ? 'error' : '' %>" value="<%= password %>">
+                        <div class="showPassword pass"></div>
+                    </div>
+                    <% if (errors.password) { %>
+                        <span class="error-message"><%= errors.password.msg %></span>
+                    <% } %>
+                </div>
+                <div class="inputContainer">
+                    <label for="confirmPassword">Confrim Password </label>
+                    <div class="passwordInput">
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="<%= errors.confirmPassword ? 'error' : '' %>" value="<%= confrimPassword %>">
+                        <div class="showPassword confrimPass"></div>
+                    </div>
+                    <% if (errors.confirmPassword) { %>
+                        <span class="error-message"><%= errors.confirmPassword.msg %></span>
+                    <% } %>
+                </div>
+            </div>
+            <button class="submitBtn">Create Account</button>
+        </form>
+    </div>
+
+    <script>
+        const btn = document.querySelector('.pass');
+        const password = document.querySelector('#password');
+
+        btn.addEventListener("click", (e) => {
+            if(!btn.classList.contains("show")){
+                password.type = 'text';
+                btn.classList.add("show");
+            }else {
+                password.type = 'password';
+                btn.classList.remove("show");
+            }
+        });
+
+        const confrimbtn = document.querySelector('.confrimPass');
+        const confrimPassword = document.querySelector('#confirmPassword');
+
+        confrimbtn.addEventListener("click", (e) => {
+            if(!confrimbtn.classList.contains("show")){
+                confrimPassword.type = 'text';
+                confrimbtn.classList.add("show");
+            }else {
+                confrimPassword.type = 'password';
+                confrimbtn.classList.remove("show");
+            }
+        });
+    </script>
 </body>
 </html>

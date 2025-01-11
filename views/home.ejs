@@ -3,10 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home</title>
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/home.css">
 </head>
 <body>
-    <h1>Welcome <%= user.username %></h1>
-    <a href="/logout">Log out</a>
+    <div class="container">
+        <div class="navbar">
+            <div class="left-side">
+                <h1>Welcome <%= user.username %></h1>
+                <a href="" class="navbarlink addFolder">New Folder</a>
+                <a href="" class="navbarlink">New File</a>
+            </div>
+            <a href="log-out" class="navbarlink">Log Out</a>
+        </div>
+        <div class="left-container">
+            <% if(locals.folders) { %> 
+                <% folders.map(folder => { %> 
+                    <div> <%= folder.folderName %></div>
+                <% }) %>    
+            <% } %>
+        </div>
+        <div class="right-container">
+            <div class="infoContainer">
+                <a href="" class="info">Name</a>
+                <a href="" class="info">Size</a>
+                <a href="" class="info">Created</a>
+            </div>
+        </div>
+    </div>
+
+    <form action="/home/add-folder" method="post" class="folderForm hide">
+        <button class="close">x</button>
+        <label for="folder">Add New Folder</label>
+        <input type="text" name="folderName" id="folder">
+        <button class="submit">Add Folder</button>
+    </form>
+
+    <script>
+        const closeBtn = document.querySelector('.close');
+        const form = document.querySelector('.folderForm');
+        const addFolder = document.querySelector('.addFolder')
+
+        closeBtn.addEventListener("click", (e) => {
+            e.preventDefault();     
+            form.classList.add('hide');
+        })  
+
+        addFolder.addEventListener('click', (e) => {
+            e.preventDefault();
+            form.classList.remove('hide');
+        })
+    </script>
 </body>
 </html>
