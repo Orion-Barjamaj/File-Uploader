@@ -15,12 +15,27 @@ model User{
   id Int @id @default(autoincrement())
   username String
   password String
-  folders Folder[]
+  folder Folder[]
 }
 
 model Folder{
   id Int @id @default(autoincrement())
   folderName String
   user User @relation(fields: [userId], references: [id])
-  userId Int
+  userId Int 
+  parentId Int?
+  createdOn DateTime @default(now())
+  parent Folder? @relation("FolderParent", fields: [parentId], references: [id])
+  subFolders Folder[] @relation("FolderParent")
+  files Files[]
+}
+
+model Files{
+  id Int @id @default(autoincrement())
+  name String
+  fileData Bytes
+  size Int
+  createdOn DateTime @default(now())
+  folder Folder @relation(fields: [folderId], references: [id])
+  folderId Int
 }

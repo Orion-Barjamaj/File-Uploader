@@ -9,35 +9,72 @@
 </head>
 <body>
     <div class="container">
-        <div class="navbar">
-            <div class="left-side">
-                <h1>Welcome <%= user.username %></h1>
-                <a href="" class="navbarlink addFolder">New Folder</a>
-                <a href="" class="navbarlink">New File</a>
-            </div>
-            <a href="log-out" class="navbarlink">Log Out</a>
-        </div>
         <div class="left-container">
+            <div class="profile">
+                <img src="https://i.pravatar.cc/60?img=<%=user.id%>" alt="pfp" class="pfp">
+                <div class="username"><%= user.username %></div>
+                <div class="email"><%= user.username %>@gmail.com</div>
+                <a href="/log-out" class="logoutLink"><div class="logoutImg"></div></a>
+            </div>
+            <div class="allFolders"><div class="allFoldersImg"></div>All Folders</div>
             <% if(locals.folders) { %> 
                 <% folders.map(folder => { %> 
-                    <div> <%= folder.folderName %></div>
+                    <a href="/home/<%= folder.id %>" class="projects"> <%= folder.folderName %></a>
                 <% }) %>    
             <% } %>
         </div>
         <div class="right-container">
+            <div class="btnContainer">
+                <button class="addFile button"><div class="Img plus"></div><div class="Img Doc"></div><div class="buttonName">New Document</div></button>
+                <button class="addFolder button"><div class="Img plus"></div><div>New Document</div></button>
+            </div>
             <div class="infoContainer">
-                <a href="" class="info">Name</a>
-                <a href="" class="info">Size</a>
+                <a href="" class="info"><div></div>File name</a>
+                <a href="" class="info"><span></span>Size</a>
                 <a href="" class="info">Created</a>
+            </div>
+            <div class="content">
+                <% if(locals.subFolders){ %> 
+                    <% subFolders.map(subFolder => { %> 
+                        <div class="fContainer">    
+                            <a href="/home/<%= subFolder.id %>" class="subFolderName contentChild"><div class="folderImg"></div><%= subFolder.folderName %></a>
+                            <div class="subFolderSize contentChild">No Size</div>
+                            <% const formattedDate = subFolder.createdOn.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });  %>
+                            <div class="subFolderDate contentChild"><%= formattedDate %></div>
+                        </div>
+                        <div class="line"></div>
+                    <% }) %>
+                <% } %>
+                <% if(locals.files){ %> 
+                    <% files.map(file => { %> 
+                        <div class="fContainer">
+                            <a class="subFolderName contentChild"><div class="fileImg"></div><%= file.name %></a>
+                            <div class="subFolderSize contentChild"><%= file.size %> KB</div>
+                            <% const formattedDate = file.createdOn.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });  %>
+                            <div class="subFolderDate contentChild"><%= formattedDate %></div>
+                            <form action="download/<%=file.id %>" method="post">
+                                <button type="submit">Download</button>
+                            </form>
+                        </div>
+                        <div class="line"></div>
+                    <% }) %>
+                <% } %>
             </div>
         </div>
     </div>
 
-    <form action="/home/add-folder" method="post" class="folderForm hide">
+    <form action="<%= folderId ? `/home/${folderId}` : '/home' %>" method="post" class="folderForm hide">
         <button class="close">x</button>
         <label for="folder">Add New Folder</label>
-        <input type="text" name="folderName" id="folder">
+        <input type="text" name="folderName" id="folder" placeholder="e.x John's Work">
         <button class="submit">Add Folder</button>
+    </form>
+
+    <form action="<%= folderId ? `/home/${folderId}/file` : '/home/file' %>" method="post" class="fileForm hide" enctype="multipart/form-data">
+        <button class="closeFile">x</button>
+        <label for="file">Add New File</label>
+        <input type="file" name="file" id="file">
+        <button class="submit">Add File</button>
     </form>
 
     <script>
@@ -53,6 +90,20 @@
         addFolder.addEventListener('click', (e) => {
             e.preventDefault();
             form.classList.remove('hide');
+        })
+
+        const closeFile = document.querySelector('.closeFile');
+        const formFile = document.querySelector('.fileForm');
+        const addFile = document.querySelector('.addFile')
+
+        closeFile.addEventListener("click", (e) => {
+            e.preventDefault();     
+            formFile.classList.add('hide');
+        })  
+
+        addFile.addEventListener('click', (e) => {
+            e.preventDefault();
+            formFile.classList.remove('hide');
         })
     </script>
 </body>

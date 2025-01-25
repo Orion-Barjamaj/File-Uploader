@@ -7,7 +7,7 @@ router.get('/log-in', controller.get);
 router.post('/log-in',
   passport.authenticate('local', { failureRedirect: '/log-in' }),
   function(req, res) {
-    res.redirect('home');
+    res.redirect('/home');
 });
   
 router.get('/log-out', function(req, res, next) {
