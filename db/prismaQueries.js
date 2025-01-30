@@ -28,7 +28,7 @@ async function getFolders(userid) {
                 userId: userid,
             },
             orderBy: {
-                createdOn: 'desc',
+                createdOn: 'asc',
             }
         });
 
