@@ -134,6 +134,14 @@ async function checkRoot(userId) {
     return folder;
 }
 
+async function deleteFile(fileId){
+    await prisma.files.delete({
+        where: {
+            id: fileId
+        }
+    })
+}
+
 module.exports = {
     addUser,
     addFolder,
@@ -143,5 +151,6 @@ module.exports = {
     getFiles,
     getRoot,
     checkRoot,
-    getFile
+    getFile,
+    deleteFile
 }

@@ -71,12 +71,23 @@ module.exports = {
                 return res.status(404).send({message: "file not found"});
             }
 
-            res.setHeader('Content-Type', 'application/octet-stream');  // Default for binary files
+            res.setHeader('Content-Type', 'application/octet-stream');
             res.setHeader('Content-Disposition', `attachment; filename=${file.name}`);
             res.send(Buffer.from(file.fileData));
         }catch (err) {
             console.error("Error downloading file:", err);
             res.status(500).send({ message: "Unable to download file: " + err.message });
         }
+    },
+
+    deleteFile: async (req, res) => {
+        const fileId = Number(req.params.id);
+
+        const files = await queries.getFile(fileId);
+        const folderId = files[0].folderId;
+
+        await queries.deleteFile(fileId);
+
+        res.redirect(`/home/${folderId}`)
     }
 }

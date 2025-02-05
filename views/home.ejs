@@ -52,9 +52,17 @@
                             <div class="subFolderSize contentChild"><%= file.size %> KB</div>
                             <% const formattedDate = file.createdOn.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });  %>
                             <div class="subFolderDate contentChild"><%= formattedDate %></div>
-                            <form action="download/<%=file.id %>" method="post">
-                                <button type="submit" class="downloadBtn"></button>
-                            </form>
+                            <div class="threeDots">
+                                <span></span>
+                            </div>
+                            <div class="downloadOptions">
+                                <form action="download/<%=file.id %>" method="post" class="downloadClass">
+                                    <button type="submit" class="downloadBtn"><div class="downloadImg"></div>Download File</button>
+                                </form>
+                                <form action="delete/<%=file.id %>" method="post" class="downloadClass">
+                                    <button type="submit" class="downloadBtn"><div class="deleteImg"></div>Delete File</button>
+                                </form>
+                            </div>
                         </div>
                         <div class="line"></div>
                     <% }) %>
@@ -71,8 +79,11 @@
     </form>
 
     <form action="<%= folderId ? `/home/${folderId}/file` : '/home/file' %>" method="post" class="fileForm hide" enctype="multipart/form-data">
-        <button class="closeFile">x</button>
-        <label for="file">Add New File</label>
+        <div class="upperPart">
+            <h3>Upload file</h3>
+            <button class="closeFile">x</button>
+        </div>
+        <label for="file" class="fileLabel">Add New File</label>
         <input type="file" name="file" id="file">
         <button class="submit">Add File</button>
     </form>
@@ -105,6 +116,29 @@
             e.preventDefault();
             formFile.classList.remove('hide');
         })
+        const openOptionsList = document.querySelectorAll('.threeDots');
+        const optionsList = document.querySelectorAll('.downloadOptions');
+
+        document.addEventListener('click', (e) => {
+            optionsList.forEach((options) => {
+                if (!options.contains(e.target) && !e.target.closest('.threeDots')) {
+                    options.classList.remove('showOptions');
+                }
+            });
+        });
+
+        openOptionsList.forEach((openOptions, index) => {
+            openOptions.addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                
+                optionsList.forEach((options) => {
+                    options.classList.remove('showOptions');
+                });
+
+                optionsList[index].classList.add('showOptions');
+            });
+        });
+
     </script>
 </body>
 </html>
