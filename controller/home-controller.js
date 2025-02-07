@@ -89,5 +89,17 @@ module.exports = {
         await queries.deleteFile(fileId);
 
         res.redirect(`/home/${folderId}`)
+    },
+
+    deleteFolder: async (req, res) => {
+        const folderId = Number(req.params.id);
+
+        const files = await queries.getFiles(folderId);
+        if(files){
+            await queries.deleteManyFiles(folderId);
+        }
+        await queries.deleteFolder(folderId);
+        
+        res.redirect('/home/1');
     }
 }

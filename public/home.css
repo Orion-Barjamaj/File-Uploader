@@ -417,11 +417,16 @@ input:focus{
     animation: fadeIn .1s ease-in-out;
     height: auto;
     padding: 5px;
-    right: 30px;
+    right: 120px;
     gap: 5px;
+    margin-top: 110px;
     border-radius: 10px;
     background-color: #181A25;
     position: absolute;
+}
+
+.showOptionsFolder{
+    margin-top: 75px !important;
 }
 
 #file{

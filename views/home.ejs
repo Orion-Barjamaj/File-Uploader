@@ -41,6 +41,14 @@
                             <div class="subFolderSize contentChild">No Size</div>
                             <% const formattedDate = subFolder.createdOn.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });  %>
                             <div class="subFolderDate contentChild"><%= formattedDate %></div>
+                            <div class="threeDots">
+                                <span></span>
+                            </div>
+                            <div class="downloadOptions showOptionsFolder">
+                                <form action="/deleteFolder/<%=subFolder.id %>" method="post" class="downloadClass">
+                                    <button type="submit" class="downloadBtn"><div class="deleteImg"></div>Delete Folder</button>
+                                </form>
+                            </div>
                         </div>
                         <div class="line"></div>
                     <% }) %>
@@ -56,10 +64,10 @@
                                 <span></span>
                             </div>
                             <div class="downloadOptions">
-                                <form action="download/<%=file.id %>" method="post" class="downloadClass">
+                                <form action="/download/<%=file.id %>" method="post" class="downloadClass">
                                     <button type="submit" class="downloadBtn"><div class="downloadImg"></div>Download File</button>
                                 </form>
-                                <form action="delete/<%=file.id %>" method="post" class="downloadClass">
+                                <form action="/delete/<%=file.id %>" method="post" class="downloadClass">
                                     <button type="submit" class="downloadBtn"><div class="deleteImg"></div>Delete File</button>
                                 </form>
                             </div>

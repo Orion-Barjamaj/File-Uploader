@@ -9,7 +9,8 @@ router.post('/home/:id', isAuth, controller.createFolder);
 router.post('/home', isAuth, controller.createFolder);
 router.post('/home/:id/file', isAuth, controller.createFile);
 router.post('/home/file', isAuth, controller.createFile);
-router.post('/home/download/:id', isAuth, controller.downloadFile);
-router.post('/home/delete/:id', isAuth, controller.deleteFile);
+router.post('/download/:id', isAuth, controller.downloadFile);
+router.post('/delete/:id', isAuth, controller.deleteFile);
+router.post('/deleteFolder/:id', isAuth, controller.deleteFolder);
 
 module.exports = router;
