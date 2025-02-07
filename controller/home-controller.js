@@ -12,7 +12,7 @@ module.exports = {
         const isRoot = await queries.checkRoot(req.user.id);
 
         if(isRoot){
-            console.log("Folder Exists")
+            console.log("Folder Exists");
         } else {
             await queries.addFolder("root", req.user.id);  
             const getRoot = await queries.getRoot(req.user.id, "root");
@@ -95,11 +95,15 @@ module.exports = {
         const folderId = Number(req.params.id);
 
         const files = await queries.getFiles(folderId);
+        const folders = await queries.getSubFolders(folderId);
         if(files){
             await queries.deleteManyFiles(folderId);
         }
+        if(folders){
+            await queries.deleteManyFolders(folderId);
+        }
         await queries.deleteFolder(folderId);
         
-        res.redirect('/home/1');
+        res.redirect(`/home/${req.query.folderParent}`);
     }
 }

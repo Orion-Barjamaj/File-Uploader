@@ -150,6 +150,14 @@ async function deleteFolder(folderId) {
     })
 }
 
+async function deleteManyFolders(folderId){
+    await prisma.folder.deleteMany({
+        where: {
+            parentId: folderId,
+        }
+    })
+}
+
 async function deleteManyFiles(folderId){
     await prisma.files.deleteMany({
         where: {
@@ -170,5 +178,6 @@ module.exports = {
     getFile,
     deleteFile,
     deleteFolder,
-    deleteManyFiles
+    deleteManyFiles,
+    deleteManyFolders
 }

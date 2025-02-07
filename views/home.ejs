@@ -45,7 +45,7 @@
                                 <span></span>
                             </div>
                             <div class="downloadOptions showOptionsFolder">
-                                <form action="/deleteFolder/<%=subFolder.id %>" method="post" class="downloadClass">
+                                <form action="/deleteFolder/<%=subFolder.id %>?folderParent=<%= subFolder.parentId%>" method="post" class="downloadClass">
                                     <button type="submit" class="downloadBtn"><div class="deleteImg"></div>Delete Folder</button>
                                 </form>
                             </div>
@@ -80,10 +80,13 @@
     </div>
 
     <form action="<%= folderId ? `/home/${folderId}` : '/home' %>" method="post" class="folderForm hide">
-        <button class="close">x</button>
-        <label for="folder">Add New Folder</label>
+        <label for="folder" class="folderLabel">Create Folder</label>
         <input type="text" name="folderName" id="folder" placeholder="e.x John's Work">
-        <button class="submit">Add Folder</button>
+        <div class="folderLine"></div>
+        <div class="folderBtns">
+            <button class="close">Cancel</button>
+            <button class="submit">Create</button>
+        </div>
     </form>
 
     <form action="<%= folderId ? `/home/${folderId}/file` : '/home/file' %>" method="post" class="fileForm hide" enctype="multipart/form-data">
