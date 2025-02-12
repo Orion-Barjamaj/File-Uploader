@@ -28,6 +28,9 @@
                 <button class="addFile button"><div class="Img plus"></div><div class="Img Doc"></div><div class="buttonName">New Document</div></button>
                 <button class="addFolder button"><div class="Img plus"></div><div class="Img Folder Doc"></div><div class="buttonName">New Folder</div></button>
             </div>
+            <div>
+                
+            </div>
             <div class="infoContainer">
                 <a href="" class="info"><div></div>File name</a>
                 <a href="" class="info"><span></span>Size</a>
@@ -37,7 +40,7 @@
                 <% if(locals.subFolders){ %> 
                     <% subFolders.map(subFolder => { %> 
                         <div class="fContainer">    
-                            <a href="/home/<%= subFolder.id %>" class="subFolderName contentChild"><div class="folderImg"></div><%= subFolder.folderName %></a>
+                            <a href="/home/<%= subFolder.id %>?parentName=<%= subFolder.parent %>" class="subFolderName contentChild"><div class="folderImg"></div><%= subFolder.folderName %></a>
                             <div class="subFolderSize contentChild">No Size</div>
                             <% const formattedDate = subFolder.createdOn.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });  %>
                             <div class="subFolderDate contentChild"><%= formattedDate %></div>
@@ -84,19 +87,25 @@
         <input type="text" name="folderName" id="folder" placeholder="e.x John's Work">
         <div class="folderLine"></div>
         <div class="folderBtns">
-            <button class="close">Cancel</button>
+            <button class="close closeStyle">Cancel</button>
             <button class="submit">Create</button>
         </div>
     </form>
 
     <form action="<%= folderId ? `/home/${folderId}/file` : '/home/file' %>" method="post" class="fileForm hide" enctype="multipart/form-data">
-        <div class="upperPart">
-            <h3>Upload file</h3>
-            <button class="closeFile">x</button>
-        </div>
-        <label for="file" class="fileLabel">Add New File</label>
+        <h3 style="color: white;">Upload File</h3>
+        <label for="file" class="fileLabel">
+            <div class="uploadImage"></div>
+            <p>Drag and drop files here</p>
+            <p>Max size: <b>2MB</b></p>
+            <p>Supports all file types</p>
+        </label>
         <input type="file" name="file" id="file">
-        <button class="submit">Add File</button>
+        <div class="folderLine"></div>
+        <div class="folderBtns">
+            <button class="closeFile closeStyle">Cancel</button>
+            <button class="submit">Create</button>
+        </div>
     </form>
 
     <script>

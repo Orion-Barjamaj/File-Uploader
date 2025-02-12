@@ -11,12 +11,10 @@ module.exports = {
 
         const isRoot = await queries.checkRoot(req.user.id);
 
-        if(isRoot){
-            console.log("Folder Exists");
-        } else {
+        if(!isRoot){
             await queries.addFolder("root", req.user.id);  
             const getRoot = await queries.getRoot(req.user.id, "root");
-            id = getRoot.id;     
+            id = getRoot.id;  
         }
 
         if(req.params.id){
