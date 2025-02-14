@@ -166,6 +166,16 @@ async function deleteManyFiles(folderId){
     })
 }
 
+async function getFolderById(id) {
+    const folder = await prisma.folder.findFirst({
+        where:{
+            id: id,
+        }
+    })
+
+    return folder;
+}
+
 module.exports = {
     addUser,
     addFolder,
@@ -179,5 +189,6 @@ module.exports = {
     deleteFile,
     deleteFolder,
     deleteManyFiles,
-    deleteManyFolders
+    deleteManyFolders,
+    getFolderById
 }

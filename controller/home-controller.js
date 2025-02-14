@@ -27,7 +27,14 @@ module.exports = {
         const subFolders = await queries.getSubFolders(Number(id));
         const files = await queries.getFiles(Number(id));
 
-        await res.render(`home`, {user: req.user, folders: folders, folderId: id, subFolders: subFolders, files: files});
+        const getDatFolder = await queries.getFolderById(Number(req.params.id)) //this gets the folder by its id to check if its user is the same as the user browsing 
+
+        if(getDatFolder.userId == req.user.id){
+            await res.render(`home`, {user: req.user, folders: folders, folderId: id, subFolders: subFolders, files: files});
+        }
+        else {
+            res.send("Not Ur Folder");
+        } 
     },
 
     createFolder: async (req, res) => {
